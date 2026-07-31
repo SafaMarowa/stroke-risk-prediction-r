@@ -12,9 +12,9 @@ The study applies statistical and machine learning techniques to a publicly avai
 
 The full research paper is publicly archived on Zenodo.
 
-**DOI:** YOUR DOI HERE
+**DOI:** https://doi.org/10.5281/zenodo.21724974
 
-**Zenodo:** YOUR ZENODO LINK HERE
+**Zenodo:** Tasfia, S. (2026). Stroke Risk Prediction Using Logistic Regression and Classification Trees in R. https://doi.org/10.5281/zenodo.21724974
 
 ---
 
@@ -60,5 +60,5 @@ B.Sc. in Data Science and Analysis
 
 East West University
 
-ORCID:
-PASTE YOUR ORCID HERE
+ORCID:0009-0005-1927-8496
+

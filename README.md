@@ -60,5 +60,5 @@ B.Sc. in Data Science and Analysis
 
 East West University
 
-ORCID:0009-0005-1927-8496
+ORCID: https://orcid.org/0009-0005-1927-8496
 

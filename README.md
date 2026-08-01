@@ -14,7 +14,7 @@ The full research paper is publicly archived on Zenodo.
 
 **DOI:** https://doi.org/10.5281/zenodo.21724974
 
-**Zenodo:** Tasfia, S. (2026). Stroke Risk Prediction Using Logistic Regression and Classification Trees in R. https://doi.org/10.5281/zenodo.21724974
+**Zenodo:** https://doi.org/10.5281/zenodo.21724974
 
 ---
 
@@ -40,15 +40,15 @@ The full research paper is publicly archived on Zenodo.
 This project uses the publicly available **Stroke Prediction Dataset** from Kaggle.
 
 Dataset:
-PASTE THE KAGGLE DATASET LINK HERE
+https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset
 
 ---
 
 ## Repository Contents
 
-- `STROKE_RISK_PREDICTION.R` – Complete R source code
-- `LICENSE` – MIT License
-- `README.md` – Project documentation
+- STROKE_RISK_PREDICTION.R – Complete R source code
+- README.md – Project documentation
+- LICENSE – MIT License
 
 ---
 

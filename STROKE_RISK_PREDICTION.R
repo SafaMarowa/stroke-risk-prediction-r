@@ -7,10 +7,11 @@
 #================================================================================
  
 # Block 1 - Install and Load Packages
-install.packages('leaps')
-install.packages('tree')
-library(leaps)
-library(tree)
+required_packages <- c('leaps', 'rpart', 'rpart.plot')
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) install.packages(pkg)
+}
+library(leaps); library(rpart); library(rpart.plot)  # 'tree' package removed: unused, since Blocks 17-18 use rpart()
  
 # Block 2 - Load The Kaggle Dataset
 stroke_data = read.csv("healthcare-dataset-stroke-data.csv")
@@ -137,6 +138,32 @@ accuracy <- sum(diag(conf_mat)) / sum(conf_mat)
 cat('Test Set Accuracy:', round(accuracy*100,2), '%\n')
 cat('Test Set Error :', round((1-accuracy)*100,2), '%\n')
  
+# Block 15b - ROC-AUC on the test set (rank-based, no extra packages required)
+# Reproduces the AUC value reported in the paper without depending on the
+# pROC package, using the Mann-Whitney U relationship between AUC and the
+# rank-sum statistic.
+pos_prob <- pred_prob[test_set$stroke == 1]
+neg_prob <- pred_prob[test_set$stroke == 0]
+auc_value <- (sum(outer(pos_prob, neg_prob, '>')) + 0.5 * sum(outer(pos_prob, neg_prob, '=='))) /
+  (length(pos_prob) * length(neg_prob))
+cat('Test ROC-AUC:', round(auc_value, 3), '\n')
+ 
+# Block 15c - Threshold sensitivity analysis
+# Shows how accuracy/sensitivity/specificity trade off as the classification
+# threshold is lowered below the conventional 0.5 cutoff.
+for (th in c(0.5, 0.3, 0.2, 0.15, 0.1, 0.05)) {
+  pc <- ifelse(pred_prob > th, 1, 0)
+  TP <- sum(pc == 1 & test_set$stroke == 1)
+  TN <- sum(pc == 0 & test_set$stroke == 0)
+  FP <- sum(pc == 1 & test_set$stroke == 0)
+  FN <- sum(pc == 0 & test_set$stroke == 1)
+  acc <- (TP + TN) / length(pc)
+  sens <- TP / (TP + FN)
+  spec <- TN / (TN + FP)
+  cat('threshold', th, '-> accuracy', round(acc * 100, 2), '% sensitivity',
+      round(sens * 100, 1), '% specificity', round(spec * 100, 1), '%\n')
+}
+ 
 # Block 16 - 8-Fold Cross-Validation
 set.seed(42)
 k <- 8
@@ -182,6 +209,8 @@ tree_acc <- sum(diag(tree_conf)) / sum(tree_conf)
 cat("Full Tree Accuracy:", round(tree_acc * 100, 2), "%\n")
  
 # Block 18 - Prune the tree
+# NOTE: with this loss matrix and cp path, prune(cp = 0.0005) does not
+# reduce the tree below its unpruned 11-terminal-node size (verified on rerun).
 printcp(full_tree)
 plotcp(full_tree)
 pruned_tree <- prune(full_tree, cp = 0.0005)
@@ -193,6 +222,13 @@ pruned_conf <- table(Actual = test_tree$stroke_cat, Predicted = pruned_pred)
 print(pruned_conf)
 pruned_acc <- sum(diag(pruned_conf)) / sum(pruned_conf)
 cat("Pruned Tree Accuracy:", round(pruned_acc * 100, 2), "%\n")
+ 
+# Block 18b - ROC-AUC for the classification tree (same rank-based method as Block 15b)
+tree_pos <- pruned_prob[, "Yes"][test_tree$stroke_cat == "Yes"]
+tree_neg <- pruned_prob[, "Yes"][test_tree$stroke_cat == "No"]
+tree_auc <- (sum(outer(tree_pos, tree_neg, '>')) + 0.5 * sum(outer(tree_pos, tree_neg, '=='))) /
+  (length(tree_pos) * length(tree_neg))
+cat('Tree Test ROC-AUC:', round(tree_auc, 3), '\n')
  
 # Block 19 - Final Accuracy On All Patients
 final_prob <- predict(model5, type = 'response')
@@ -214,5 +250,4 @@ cat('==================================================\n')
 #================================================================================
 # End of Script
 #================================================================================
- 
 

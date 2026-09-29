@@ -1,3 +1,4 @@
+<img width="193" height="20" alt="zenodo 23032371" src="https://github.com/user-attachments/assets/c6fc9c4d-14aa-45ca-b78e-3e693859749a" />
 # Stroke Risk Prediction Using Logistic Regression and Classification Trees in R
 
 ## Overview
@@ -12,9 +13,9 @@ The study applies statistical and machine learning techniques to a publicly avai
 
 The full research paper is publicly archived on Zenodo.
 
-**DOI:** https://doi.org/10.5281/zenodo.21724974
+**DOI:** https://doi.org/10.5281/zenodo.23032371
 
-**Zenodo:** https://doi.org/10.5281/zenodo.21724974
+**Zenodo:** https://doi.org/10.5281/zenodo.23032371
 
 ---
 

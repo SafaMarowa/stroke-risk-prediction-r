@@ -13,9 +13,9 @@ The study applies statistical and machine learning techniques to a publicly avai
 
 The full research paper is publicly archived on Zenodo.
 
-**DOI:** https://doi.org/10.5281/zenodo.23032371
+**DOI:** 10.5281/zenodo.23032371
 
-**Zenodo:** https://doi.org/10.5281/zenodo.23032371
+**Zenodo:** https://zenodo.org/records/23032371
 
 ---
 
